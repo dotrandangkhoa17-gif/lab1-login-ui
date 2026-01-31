@@ -59,7 +59,7 @@ export default function Login() {
             </div>
 
             <div className="space-y-2">
-              <Label className="text-gray-700 font-medium">Mật khẩu</Label>
+              <Label className="text-gray-700 font-medium">Password</Label>
               <div className="relative">
                 <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <Input 

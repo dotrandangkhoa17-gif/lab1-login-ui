@@ -17,3 +17,7 @@ export function CardTitle({ children }) {
 export function CardContent({ children }) {
   return <div>{children}</div>
 }
+
+export function CardFooter({ children }) {
+  return <div className="mt-4 flex items-center">{children}</div>
+}
