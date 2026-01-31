@@ -3,8 +3,29 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Mail, Lock, LogIn } from "lucide-react"
+import { Link, useNavigate } from "react-router-dom"
+import { useState } from "react"
 
 export default function Login() {
+  const navigate = useNavigate()
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
+  const [error, setError] = useState("")
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    setError("")
+
+    if (!email || !password) {
+      setError("Please fill in both email and password")
+      return
+    }
+
+    // Simulate login
+    alert("Login successful!")
+    navigate("/")
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-500 via-purple-600 to-pink-500 px-4 py-12">
       <Card className="w-full max-w-md rounded-3xl shadow-2xl border-0 overflow-hidden">
@@ -20,39 +41,47 @@ export default function Login() {
         </CardHeader>
 
         <CardContent className="space-y-5 px-8 pb-8">
-          <div className="space-y-2">
-            <Label className="text-gray-700 font-medium">Email</Label>
-            <div className="relative">
-              <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <Input 
-                type="email" 
-                placeholder="example@gmail.com"
-                className="pl-10 h-12 rounded-xl border-gray-200 focus:border-purple-500 focus:ring-purple-500 transition-all"
-              />
+          {error && <div className="text-red-500 text-sm text-center font-medium">{error}</div>}
+          
+          <form onSubmit={handleSubmit} className="space-y-5">
+            <div className="space-y-2">
+              <Label className="text-gray-700 font-medium">Email</Label>
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Input 
+                  type="email" 
+                  placeholder="example@gmail.com"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  className="pl-10 h-12 rounded-xl border-gray-200 focus:border-purple-500 focus:ring-purple-500 transition-all"
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="space-y-2">
-            <Label className="text-gray-700 font-medium">Mật khẩu</Label>
-            <div className="relative">
-              <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
-              <Input 
-                type="password" 
-                placeholder="Enter your password"
-                className="pl-10 h-12 rounded-xl border-gray-200 focus:border-purple-500 focus:ring-purple-500 transition-all"
-              />
+            <div className="space-y-2">
+              <Label className="text-gray-700 font-medium">Mật khẩu</Label>
+              <div className="relative">
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
+                <Input 
+                  type="password" 
+                  placeholder="Enter your password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className="pl-10 h-12 rounded-xl border-gray-200 focus:border-purple-500 focus:ring-purple-500 transition-all"
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="flex justify-end">
-            <a href="#" className="text-sm text-purple-600 hover:text-purple-700 hover:underline font-medium transition-colors">
-              Forgot password?
-            </a>
-          </div>
+            <div className="flex justify-end">
+              <a href="#" className="text-sm text-purple-600 hover:text-purple-700 hover:underline font-medium transition-colors">
+                Forgot password?
+              </a>
+            </div>
 
-          <Button className="w-full h-12 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02]">
-            Login
-          </Button>
+            <Button type="submit" className="w-full h-12 rounded-xl bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all transform hover:scale-[1.02]">
+              Login
+            </Button>
+          </form>
 
           <div className="flex items-center gap-3 py-2">
             <div className="flex-1 h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent" />
@@ -80,9 +109,9 @@ export default function Login() {
 
           <p className="text-center text-sm text-gray-600 pt-2">
             Don't have an account?{" "}
-            <a href="#" className="text-purple-600 hover:text-purple-700 font-semibold hover:underline transition-colors">
+            <Link to="/register" className="text-purple-600 hover:text-purple-700 font-semibold hover:underline transition-colors">
               Sign up
-            </a>
+            </Link>
           </p>
         </CardContent>
       </Card>
